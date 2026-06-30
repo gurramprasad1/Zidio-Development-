@@ -1,145 +1,142 @@
-export { ObjectSchema } from "@eslint/object-schema";
-export type PropertyDefinition = $eslintobjectschema.PropertyDefinition;
-export type ObjectDefinition = $eslintobjectschema.ObjectDefinition;
-export type ConfigObject = $typests.ConfigObject;
-export type IMinimatchStatic = minimatch.IMinimatchStatic;
-export type IMinimatch = minimatch.IMinimatch;
-export type ObjectSchemaInstance = ObjectSchema;
-/**
- * Represents an array of config objects and provides method for working with
- * those config objects.
- */
-export class ConfigArray extends Array<any> {
-    /**
-     * Creates a new instance of ConfigArray.
-     * @param {Iterable|Function|Object} configs An iterable yielding config
-     *      objects, or a config function, or a config object.
-     * @param {Object} options The options for the ConfigArray.
-     * @param {string} [options.basePath="/"] The absolute path of the config file directory.
-     * 		Defaults to `"/"`.
-     * @param {boolean} [options.normalized=false] Flag indicating if the
-     *      configs have already been normalized.
-     * @param {Object} [options.schema] The additional schema
-     *      definitions to use for the ConfigArray schema.
-     * @param {Array<string>} [options.extraConfigTypes] List of config types supported.
-     * @throws {TypeError} When the `basePath` is not a non-empty string,
-     */
-    constructor(configs: Iterable<any> | Function | any, { basePath, normalized, schema: customSchema, extraConfigTypes, }?: {
-        basePath?: string;
-        normalized?: boolean;
-        schema?: any;
-        extraConfigTypes?: Array<string>;
-    });
-    /**
-     * The path of the config file that this array was loaded from.
-     * This is used to calculate filename matches.
-     * @property basePath
-     * @type {string}
-     */
-    basePath: string;
-    /**
-     * The supported config types.
-     * @type {Array<string>}
-     */
-    extraConfigTypes: Array<string>;
-    /**
-     * Returns the `files` globs from every config object in the array.
-     * This can be used to determine which files will be matched by a
-     * config array or to use as a glob pattern when no patterns are provided
-     * for a command line interface.
-     * @returns {Array<string|Function>} An array of matchers.
-     */
-    get files(): Array<string | Function>;
-    /**
-     * Returns ignore matchers that should always be ignored regardless of
-     * the matching `files` fields in any configs. This is necessary to mimic
-     * the behavior of things like .gitignore and .eslintignore, allowing a
-     * globbing operation to be faster.
-     * @returns {Object[]} An array of config objects representing global ignores.
-     */
-    get ignores(): any[];
-    /**
-     * Indicates if the config array has been normalized.
-     * @returns {boolean} True if the config array is normalized, false if not.
-     */
-    isNormalized(): boolean;
-    /**
-     * Normalizes a config array by flattening embedded arrays and executing
-     * config functions.
-     * @param {Object} [context] The context object for config functions.
-     * @returns {Promise<ConfigArray>} The current ConfigArray instance.
-     */
-    normalize(context?: any): Promise<ConfigArray>;
-    /**
-     * Normalizes a config array by flattening embedded arrays and executing
-     * config functions.
-     * @param {Object} [context] The context object for config functions.
-     * @returns {ConfigArray} The current ConfigArray instance.
-     */
-    normalizeSync(context?: any): ConfigArray;
-    /**
-     * Returns the config object for a given file path and a status that can be used to determine why a file has no config.
-     * @param {string} filePath The path of a file to get a config for.
-     * @returns {{ config?: Object, status: "ignored"|"external"|"unconfigured"|"matched" }}
-     * An object with an optional property `config` and property `status`.
-     * `config` is the config object for the specified file as returned by {@linkcode ConfigArray.getConfig},
-     * `status` a is one of the constants returned by {@linkcode ConfigArray.getConfigStatus}.
-     */
-    getConfigWithStatus(filePath: string): {
-        config?: any;
-        status: "ignored" | "external" | "unconfigured" | "matched";
-    };
-    /**
-     * Returns the config object for a given file path.
-     * @param {string} filePath The path of a file to get a config for.
-     * @returns {Object|undefined} The config object for this file or `undefined`.
-     */
-    getConfig(filePath: string): any | undefined;
-    /**
-     * Determines whether a file has a config or why it doesn't.
-     * @param {string} filePath The path of the file to check.
-     * @returns {"ignored"|"external"|"unconfigured"|"matched"} One of the following values:
-     * * `"ignored"`: the file is ignored
-     * * `"external"`: the file is outside the base path
-     * * `"unconfigured"`: the file is not matched by any config
-     * * `"matched"`: the file has a matching config
-     */
-    getConfigStatus(filePath: string): "ignored" | "external" | "unconfigured" | "matched";
-    /**
-     * Determines if the given filepath is ignored based on the configs.
-     * @param {string} filePath The path of a file to check.
-     * @returns {boolean} True if the path is ignored, false if not.
-     * @deprecated Use `isFileIgnored` instead.
-     */
-    isIgnored(filePath: string): boolean;
-    /**
-     * Determines if the given filepath is ignored based on the configs.
-     * @param {string} filePath The path of a file to check.
-     * @returns {boolean} True if the path is ignored, false if not.
-     */
-    isFileIgnored(filePath: string): boolean;
-    /**
-     * Determines if the given directory is ignored based on the configs.
-     * This checks only default `ignores` that don't have `files` in the
-     * same config. A pattern such as `/foo` be considered to ignore the directory
-     * while a pattern such as `/foo/**` is not considered to ignore the
-     * directory because it is matching files.
-     * @param {string} directoryPath The path of a directory to check.
-     * @returns {boolean} True if the directory is ignored, false if not. Will
-     * 		return true for any directory that is not inside of `basePath`.
-     * @throws {Error} When the `ConfigArray` is not normalized.
-     */
-    isDirectoryIgnored(directoryPath: string): boolean;
-    #private;
-}
-export namespace ConfigArraySymbol {
-    let isNormalized: symbol;
-    let configCache: symbol;
-    let schema: symbol;
-    let finalizeConfig: symbol;
-    let preprocessConfig: symbol;
-}
-import type * as $eslintobjectschema from "@eslint/object-schema";
-import type * as $typests from "./types.cts";
-import minimatch from 'minimatch';
-import { ObjectSchema } from '@eslint/object-schema';
+export { focusManager_alias_1 as focusManager } from './_tsup-dts-rollup.cjs';
+export { environmentManager_alias_1 as environmentManager } from './_tsup-dts-rollup.cjs';
+export { defaultShouldDehydrateMutation_alias_1 as defaultShouldDehydrateMutation } from './_tsup-dts-rollup.cjs';
+export { defaultShouldDehydrateQuery_alias_1 as defaultShouldDehydrateQuery } from './_tsup-dts-rollup.cjs';
+export { dehydrate_alias_1 as dehydrate } from './_tsup-dts-rollup.cjs';
+export { hydrate_alias_1 as hydrate } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserver } from './_tsup-dts-rollup.cjs';
+export { MutationCache } from './_tsup-dts-rollup.cjs';
+export { MutationCacheNotifyEvent } from './_tsup-dts-rollup.cjs';
+export { MutationObserver } from './_tsup-dts-rollup.cjs';
+export { defaultScheduler } from './_tsup-dts-rollup.cjs';
+export { notifyManager } from './_tsup-dts-rollup.cjs';
+export { onlineManager } from './_tsup-dts-rollup.cjs';
+export { QueriesObserver } from './_tsup-dts-rollup.cjs';
+export { QueryCache } from './_tsup-dts-rollup.cjs';
+export { QueryCacheNotifyEvent } from './_tsup-dts-rollup.cjs';
+export { QueryClient } from './_tsup-dts-rollup.cjs';
+export { QueryObserver } from './_tsup-dts-rollup.cjs';
+export { CancelledError } from './_tsup-dts-rollup.cjs';
+export { isCancelledError } from './_tsup-dts-rollup.cjs';
+export { timeoutManager } from './_tsup-dts-rollup.cjs';
+export { ManagedTimerId } from './_tsup-dts-rollup.cjs';
+export { TimeoutCallback } from './_tsup-dts-rollup.cjs';
+export { TimeoutProvider } from './_tsup-dts-rollup.cjs';
+export { hashKey } from './_tsup-dts-rollup.cjs';
+export { isServer } from './_tsup-dts-rollup.cjs';
+export { keepPreviousData } from './_tsup-dts-rollup.cjs';
+export { matchMutation } from './_tsup-dts-rollup.cjs';
+export { matchQuery } from './_tsup-dts-rollup.cjs';
+export { noop } from './_tsup-dts-rollup.cjs';
+export { partialMatchKey } from './_tsup-dts-rollup.cjs';
+export { replaceEqualDeep } from './_tsup-dts-rollup.cjs';
+export { shouldThrowError } from './_tsup-dts-rollup.cjs';
+export { skipToken } from './_tsup-dts-rollup.cjs';
+export { MutationFilters } from './_tsup-dts-rollup.cjs';
+export { QueryFilters } from './_tsup-dts-rollup.cjs';
+export { SkipToken } from './_tsup-dts-rollup.cjs';
+export { Updater } from './_tsup-dts-rollup.cjs';
+export { experimental_streamedQuery } from './_tsup-dts-rollup.cjs';
+export { DehydratedState_alias_1 as DehydratedState } from './_tsup-dts-rollup.cjs';
+export { DehydrateOptions_alias_1 as DehydrateOptions } from './_tsup-dts-rollup.cjs';
+export { HydrateOptions_alias_1 as HydrateOptions } from './_tsup-dts-rollup.cjs';
+export { Mutation } from './_tsup-dts-rollup.cjs';
+export { MutationState } from './_tsup-dts-rollup.cjs';
+export { QueriesObserverOptions } from './_tsup-dts-rollup.cjs';
+export { Query } from './_tsup-dts-rollup.cjs';
+export { QueryState } from './_tsup-dts-rollup.cjs';
+export { NonUndefinedGuard } from './_tsup-dts-rollup.cjs';
+export { DistributiveOmit } from './_tsup-dts-rollup.cjs';
+export { OmitKeyof } from './_tsup-dts-rollup.cjs';
+export { Override } from './_tsup-dts-rollup.cjs';
+export { NoInfer } from './_tsup-dts-rollup.cjs';
+export { Register } from './_tsup-dts-rollup.cjs';
+export { DefaultError } from './_tsup-dts-rollup.cjs';
+export { QueryKey } from './_tsup-dts-rollup.cjs';
+export { dataTagSymbol } from './_tsup-dts-rollup.cjs';
+export { dataTagErrorSymbol } from './_tsup-dts-rollup.cjs';
+export { unsetMarker } from './_tsup-dts-rollup.cjs';
+export { UnsetMarker } from './_tsup-dts-rollup.cjs';
+export { AnyDataTag } from './_tsup-dts-rollup.cjs';
+export { DataTag } from './_tsup-dts-rollup.cjs';
+export { InferDataFromTag } from './_tsup-dts-rollup.cjs';
+export { InferErrorFromTag } from './_tsup-dts-rollup.cjs';
+export { QueryFunction } from './_tsup-dts-rollup.cjs';
+export { StaleTime } from './_tsup-dts-rollup.cjs';
+export { StaleTimeFunction } from './_tsup-dts-rollup.cjs';
+export { Enabled } from './_tsup-dts-rollup.cjs';
+export { QueryPersister } from './_tsup-dts-rollup.cjs';
+export { QueryFunctionContext } from './_tsup-dts-rollup.cjs';
+export { InitialDataFunction } from './_tsup-dts-rollup.cjs';
+export { PlaceholderDataFunction } from './_tsup-dts-rollup.cjs';
+export { QueriesPlaceholderDataFunction } from './_tsup-dts-rollup.cjs';
+export { QueryKeyHashFunction } from './_tsup-dts-rollup.cjs';
+export { GetPreviousPageParamFunction } from './_tsup-dts-rollup.cjs';
+export { GetNextPageParamFunction } from './_tsup-dts-rollup.cjs';
+export { InfiniteData } from './_tsup-dts-rollup.cjs';
+export { QueryMeta } from './_tsup-dts-rollup.cjs';
+export { NetworkMode } from './_tsup-dts-rollup.cjs';
+export { NotifyOnChangeProps } from './_tsup-dts-rollup.cjs';
+export { QueryOptions } from './_tsup-dts-rollup.cjs';
+export { InitialPageParam } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryPageParamsOptions } from './_tsup-dts-rollup.cjs';
+export { ThrowOnError } from './_tsup-dts-rollup.cjs';
+export { QueryObserverOptions } from './_tsup-dts-rollup.cjs';
+export { WithRequired } from './_tsup-dts-rollup.cjs';
+export { DefaultedQueryObserverOptions } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverOptions } from './_tsup-dts-rollup.cjs';
+export { DefaultedInfiniteQueryObserverOptions } from './_tsup-dts-rollup.cjs';
+export { FetchQueryOptions } from './_tsup-dts-rollup.cjs';
+export { EnsureQueryDataOptions } from './_tsup-dts-rollup.cjs';
+export { EnsureInfiniteQueryDataOptions } from './_tsup-dts-rollup.cjs';
+export { FetchInfiniteQueryOptions } from './_tsup-dts-rollup.cjs';
+export { ResultOptions } from './_tsup-dts-rollup.cjs';
+export { RefetchOptions } from './_tsup-dts-rollup.cjs';
+export { InvalidateQueryFilters } from './_tsup-dts-rollup.cjs';
+export { RefetchQueryFilters } from './_tsup-dts-rollup.cjs';
+export { InvalidateOptions } from './_tsup-dts-rollup.cjs';
+export { ResetOptions } from './_tsup-dts-rollup.cjs';
+export { FetchNextPageOptions } from './_tsup-dts-rollup.cjs';
+export { FetchPreviousPageOptions } from './_tsup-dts-rollup.cjs';
+export { QueryStatus } from './_tsup-dts-rollup.cjs';
+export { FetchStatus } from './_tsup-dts-rollup.cjs';
+export { QueryObserverBaseResult } from './_tsup-dts-rollup.cjs';
+export { QueryObserverPendingResult } from './_tsup-dts-rollup.cjs';
+export { QueryObserverLoadingResult } from './_tsup-dts-rollup.cjs';
+export { QueryObserverLoadingErrorResult } from './_tsup-dts-rollup.cjs';
+export { QueryObserverRefetchErrorResult } from './_tsup-dts-rollup.cjs';
+export { QueryObserverSuccessResult } from './_tsup-dts-rollup.cjs';
+export { QueryObserverPlaceholderResult } from './_tsup-dts-rollup.cjs';
+export { DefinedQueryObserverResult } from './_tsup-dts-rollup.cjs';
+export { QueryObserverResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverBaseResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverPendingResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverLoadingResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverLoadingErrorResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverRefetchErrorResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverSuccessResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverPlaceholderResult } from './_tsup-dts-rollup.cjs';
+export { DefinedInfiniteQueryObserverResult } from './_tsup-dts-rollup.cjs';
+export { InfiniteQueryObserverResult } from './_tsup-dts-rollup.cjs';
+export { MutationKey } from './_tsup-dts-rollup.cjs';
+export { MutationStatus } from './_tsup-dts-rollup.cjs';
+export { MutationScope } from './_tsup-dts-rollup.cjs';
+export { MutationMeta } from './_tsup-dts-rollup.cjs';
+export { MutationFunctionContext } from './_tsup-dts-rollup.cjs';
+export { MutationFunction } from './_tsup-dts-rollup.cjs';
+export { MutationOptions } from './_tsup-dts-rollup.cjs';
+export { MutationObserverOptions } from './_tsup-dts-rollup.cjs';
+export { MutateOptions } from './_tsup-dts-rollup.cjs';
+export { MutateFunction } from './_tsup-dts-rollup.cjs';
+export { MutationObserverBaseResult } from './_tsup-dts-rollup.cjs';
+export { MutationObserverIdleResult } from './_tsup-dts-rollup.cjs';
+export { MutationObserverLoadingResult } from './_tsup-dts-rollup.cjs';
+export { MutationObserverErrorResult } from './_tsup-dts-rollup.cjs';
+export { MutationObserverSuccessResult } from './_tsup-dts-rollup.cjs';
+export { MutationObserverResult } from './_tsup-dts-rollup.cjs';
+export { QueryClientConfig } from './_tsup-dts-rollup.cjs';
+export { DefaultOptions } from './_tsup-dts-rollup.cjs';
+export { CancelOptions } from './_tsup-dts-rollup.cjs';
+export { SetDataOptions } from './_tsup-dts-rollup.cjs';
+export { NotifyEventType } from './_tsup-dts-rollup.cjs';
+export { NotifyEvent } from './_tsup-dts-rollup.cjs';

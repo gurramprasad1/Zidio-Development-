@@ -1,179 +1,142 @@
-/**
- * An events map is an interface that maps event names to their value, which
- * represents the type of the `on` listener.
- */
-export interface EventsMap {
-    [event: string]: any;
-}
-
-/**
- * The default events map, used if no EventsMap is given. Using this EventsMap
- * is equivalent to accepting all event names, and any data.
- */
-export interface DefaultEventsMap {
-    [event: string]: (...args: any[]) => void;
-}
-
-/**
- * Returns a union type containing all the keys of an event map.
- */
-export type EventNames<Map extends EventsMap> = keyof Map & (string | symbol);
-
-/** The tuple type representing the parameters of an event listener */
-export type EventParams<
-    Map extends EventsMap,
-    Ev extends EventNames<Map>
-    > = Parameters<Map[Ev]>;
-
-/**
- * The event names that are either in ReservedEvents or in UserEvents
- */
-export type ReservedOrUserEventNames<
-    ReservedEventsMap extends EventsMap,
-    UserEvents extends EventsMap
-    > = EventNames<ReservedEventsMap> | EventNames<UserEvents>;
-
-/**
- * Type of a listener of a user event or a reserved event. If `Ev` is in
- * `ReservedEvents`, the reserved event listener is returned.
- */
-export type ReservedOrUserListener<
-    ReservedEvents extends EventsMap,
-    UserEvents extends EventsMap,
-    Ev extends ReservedOrUserEventNames<ReservedEvents, UserEvents>
-    > = FallbackToUntypedListener<
-    Ev extends EventNames<ReservedEvents>
-        ? ReservedEvents[Ev]
-        : Ev extends EventNames<UserEvents>
-        ? UserEvents[Ev]
-        : never
-    >;
-
-/**
- * Returns an untyped listener type if `T` is `never`; otherwise, returns `T`.
- *
- * This is a hack to mitigate https://github.com/socketio/socket.io/issues/3833.
- * Needed because of https://github.com/microsoft/TypeScript/issues/41778
- */
-type FallbackToUntypedListener<T> = [T] extends [never]
-    ? (...args: any[]) => void | Promise<void>
-    : T;
-
-/**
- * Strictly typed version of an `EventEmitter`. A `TypedEventEmitter` takes type
- * parameters for mappings of event names to event data types, and strictly
- * types method calls to the `EventEmitter` according to these event maps.
- *
- * @typeParam ListenEvents - `EventsMap` of user-defined events that can be
- * listened to with `on` or `once`
- * @typeParam EmitEvents - `EventsMap` of user-defined events that can be
- * emitted with `emit`
- * @typeParam ReservedEvents - `EventsMap` of reserved events, that can be
- * emitted by socket.io with `emitReserved`, and can be listened to with
- * `listen`.
- */
-export class Emitter<
-    ListenEvents extends EventsMap,
-    EmitEvents extends EventsMap,
-    ReservedEvents extends EventsMap = {}
-    > {
-    /**
-     * Adds the `listener` function as an event listener for `ev`.
-     *
-     * @param ev Name of the event
-     * @param listener Callback function
-     */
-    on<Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>>(
-        ev: Ev,
-        listener: ReservedOrUserListener<ReservedEvents, ListenEvents, Ev>
-    ): this;
-
-    /**
-     * Adds a one-time `listener` function as an event listener for `ev`.
-     *
-     * @param ev Name of the event
-     * @param listener Callback function
-     */
-    once<Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>>(
-        ev: Ev,
-        listener: ReservedOrUserListener<ReservedEvents, ListenEvents, Ev>
-    ): this;
-
-    /**
-     * Removes the `listener` function as an event listener for `ev`.
-     *
-     * @param ev Name of the event
-     * @param listener Callback function
-     */
-    off<Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>>(
-        ev?: Ev,
-        listener?: ReservedOrUserListener<ReservedEvents, ListenEvents, Ev>
-    ): this;
-
-    /**
-     * Emits an event.
-     *
-     * @param ev Name of the event
-     * @param args Values to send to listeners of this event
-     */
-    emit<Ev extends EventNames<EmitEvents>>(
-        ev: Ev,
-        ...args: EventParams<EmitEvents, Ev>
-    ): this;
-
-    /**
-     * Emits a reserved event.
-     *
-     * This method is `protected`, so that only a class extending
-     * `StrictEventEmitter` can emit its own reserved events.
-     *
-     * @param ev Reserved event name
-     * @param args Arguments to emit along with the event
-     */
-    protected emitReserved<Ev extends EventNames<ReservedEvents>>(
-        ev: Ev,
-        ...args: EventParams<ReservedEvents, Ev>
-    ): this;
-
-    /**
-     * Returns the listeners listening to an event.
-     *
-     * @param event Event name
-     * @returns Array of listeners subscribed to `event`
-     */
-    listeners<Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>>(
-        event: Ev
-    ): ReservedOrUserListener<ReservedEvents, ListenEvents, Ev>[];
-
-    /**
-     * Returns true if there is a listener for this event.
-     *
-     * @param event Event name
-     * @returns boolean
-     */
-    hasListeners<
-        Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>
-        >(event: Ev): boolean;
-
-    /**
-     * Removes the `listener` function as an event listener for `ev`.
-     *
-     * @param ev Name of the event
-     * @param listener Callback function
-     */
-    removeListener<
-        Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>
-        >(
-        ev?: Ev,
-        listener?: ReservedOrUserListener<ReservedEvents, ListenEvents, Ev>
-    ): this;
-
-    /**
-     * Removes all `listener` function as an event listener for `ev`.
-     *
-     * @param ev Name of the event
-     */
-    removeAllListeners<
-        Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>
-        >(ev?: Ev): this;
-}
+export { focusManager_alias_1 as focusManager } from './_tsup-dts-rollup.js';
+export { environmentManager_alias_1 as environmentManager } from './_tsup-dts-rollup.js';
+export { defaultShouldDehydrateMutation_alias_1 as defaultShouldDehydrateMutation } from './_tsup-dts-rollup.js';
+export { defaultShouldDehydrateQuery_alias_1 as defaultShouldDehydrateQuery } from './_tsup-dts-rollup.js';
+export { dehydrate_alias_1 as dehydrate } from './_tsup-dts-rollup.js';
+export { hydrate_alias_1 as hydrate } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserver } from './_tsup-dts-rollup.js';
+export { MutationCache } from './_tsup-dts-rollup.js';
+export { MutationCacheNotifyEvent } from './_tsup-dts-rollup.js';
+export { MutationObserver } from './_tsup-dts-rollup.js';
+export { defaultScheduler } from './_tsup-dts-rollup.js';
+export { notifyManager } from './_tsup-dts-rollup.js';
+export { onlineManager } from './_tsup-dts-rollup.js';
+export { QueriesObserver } from './_tsup-dts-rollup.js';
+export { QueryCache } from './_tsup-dts-rollup.js';
+export { QueryCacheNotifyEvent } from './_tsup-dts-rollup.js';
+export { QueryClient } from './_tsup-dts-rollup.js';
+export { QueryObserver } from './_tsup-dts-rollup.js';
+export { CancelledError } from './_tsup-dts-rollup.js';
+export { isCancelledError } from './_tsup-dts-rollup.js';
+export { timeoutManager } from './_tsup-dts-rollup.js';
+export { ManagedTimerId } from './_tsup-dts-rollup.js';
+export { TimeoutCallback } from './_tsup-dts-rollup.js';
+export { TimeoutProvider } from './_tsup-dts-rollup.js';
+export { hashKey } from './_tsup-dts-rollup.js';
+export { isServer } from './_tsup-dts-rollup.js';
+export { keepPreviousData } from './_tsup-dts-rollup.js';
+export { matchMutation } from './_tsup-dts-rollup.js';
+export { matchQuery } from './_tsup-dts-rollup.js';
+export { noop } from './_tsup-dts-rollup.js';
+export { partialMatchKey } from './_tsup-dts-rollup.js';
+export { replaceEqualDeep } from './_tsup-dts-rollup.js';
+export { shouldThrowError } from './_tsup-dts-rollup.js';
+export { skipToken } from './_tsup-dts-rollup.js';
+export { MutationFilters } from './_tsup-dts-rollup.js';
+export { QueryFilters } from './_tsup-dts-rollup.js';
+export { SkipToken } from './_tsup-dts-rollup.js';
+export { Updater } from './_tsup-dts-rollup.js';
+export { experimental_streamedQuery } from './_tsup-dts-rollup.js';
+export { DehydratedState_alias_1 as DehydratedState } from './_tsup-dts-rollup.js';
+export { DehydrateOptions_alias_1 as DehydrateOptions } from './_tsup-dts-rollup.js';
+export { HydrateOptions_alias_1 as HydrateOptions } from './_tsup-dts-rollup.js';
+export { Mutation } from './_tsup-dts-rollup.js';
+export { MutationState } from './_tsup-dts-rollup.js';
+export { QueriesObserverOptions } from './_tsup-dts-rollup.js';
+export { Query } from './_tsup-dts-rollup.js';
+export { QueryState } from './_tsup-dts-rollup.js';
+export { NonUndefinedGuard } from './_tsup-dts-rollup.js';
+export { DistributiveOmit } from './_tsup-dts-rollup.js';
+export { OmitKeyof } from './_tsup-dts-rollup.js';
+export { Override } from './_tsup-dts-rollup.js';
+export { NoInfer } from './_tsup-dts-rollup.js';
+export { Register } from './_tsup-dts-rollup.js';
+export { DefaultError } from './_tsup-dts-rollup.js';
+export { QueryKey } from './_tsup-dts-rollup.js';
+export { dataTagSymbol } from './_tsup-dts-rollup.js';
+export { dataTagErrorSymbol } from './_tsup-dts-rollup.js';
+export { unsetMarker } from './_tsup-dts-rollup.js';
+export { UnsetMarker } from './_tsup-dts-rollup.js';
+export { AnyDataTag } from './_tsup-dts-rollup.js';
+export { DataTag } from './_tsup-dts-rollup.js';
+export { InferDataFromTag } from './_tsup-dts-rollup.js';
+export { InferErrorFromTag } from './_tsup-dts-rollup.js';
+export { QueryFunction } from './_tsup-dts-rollup.js';
+export { StaleTime } from './_tsup-dts-rollup.js';
+export { StaleTimeFunction } from './_tsup-dts-rollup.js';
+export { Enabled } from './_tsup-dts-rollup.js';
+export { QueryPersister } from './_tsup-dts-rollup.js';
+export { QueryFunctionContext } from './_tsup-dts-rollup.js';
+export { InitialDataFunction } from './_tsup-dts-rollup.js';
+export { PlaceholderDataFunction } from './_tsup-dts-rollup.js';
+export { QueriesPlaceholderDataFunction } from './_tsup-dts-rollup.js';
+export { QueryKeyHashFunction } from './_tsup-dts-rollup.js';
+export { GetPreviousPageParamFunction } from './_tsup-dts-rollup.js';
+export { GetNextPageParamFunction } from './_tsup-dts-rollup.js';
+export { InfiniteData } from './_tsup-dts-rollup.js';
+export { QueryMeta } from './_tsup-dts-rollup.js';
+export { NetworkMode } from './_tsup-dts-rollup.js';
+export { NotifyOnChangeProps } from './_tsup-dts-rollup.js';
+export { QueryOptions } from './_tsup-dts-rollup.js';
+export { InitialPageParam } from './_tsup-dts-rollup.js';
+export { InfiniteQueryPageParamsOptions } from './_tsup-dts-rollup.js';
+export { ThrowOnError } from './_tsup-dts-rollup.js';
+export { QueryObserverOptions } from './_tsup-dts-rollup.js';
+export { WithRequired } from './_tsup-dts-rollup.js';
+export { DefaultedQueryObserverOptions } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverOptions } from './_tsup-dts-rollup.js';
+export { DefaultedInfiniteQueryObserverOptions } from './_tsup-dts-rollup.js';
+export { FetchQueryOptions } from './_tsup-dts-rollup.js';
+export { EnsureQueryDataOptions } from './_tsup-dts-rollup.js';
+export { EnsureInfiniteQueryDataOptions } from './_tsup-dts-rollup.js';
+export { FetchInfiniteQueryOptions } from './_tsup-dts-rollup.js';
+export { ResultOptions } from './_tsup-dts-rollup.js';
+export { RefetchOptions } from './_tsup-dts-rollup.js';
+export { InvalidateQueryFilters } from './_tsup-dts-rollup.js';
+export { RefetchQueryFilters } from './_tsup-dts-rollup.js';
+export { InvalidateOptions } from './_tsup-dts-rollup.js';
+export { ResetOptions } from './_tsup-dts-rollup.js';
+export { FetchNextPageOptions } from './_tsup-dts-rollup.js';
+export { FetchPreviousPageOptions } from './_tsup-dts-rollup.js';
+export { QueryStatus } from './_tsup-dts-rollup.js';
+export { FetchStatus } from './_tsup-dts-rollup.js';
+export { QueryObserverBaseResult } from './_tsup-dts-rollup.js';
+export { QueryObserverPendingResult } from './_tsup-dts-rollup.js';
+export { QueryObserverLoadingResult } from './_tsup-dts-rollup.js';
+export { QueryObserverLoadingErrorResult } from './_tsup-dts-rollup.js';
+export { QueryObserverRefetchErrorResult } from './_tsup-dts-rollup.js';
+export { QueryObserverSuccessResult } from './_tsup-dts-rollup.js';
+export { QueryObserverPlaceholderResult } from './_tsup-dts-rollup.js';
+export { DefinedQueryObserverResult } from './_tsup-dts-rollup.js';
+export { QueryObserverResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverBaseResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverPendingResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverLoadingResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverLoadingErrorResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverRefetchErrorResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverSuccessResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverPlaceholderResult } from './_tsup-dts-rollup.js';
+export { DefinedInfiniteQueryObserverResult } from './_tsup-dts-rollup.js';
+export { InfiniteQueryObserverResult } from './_tsup-dts-rollup.js';
+export { MutationKey } from './_tsup-dts-rollup.js';
+export { MutationStatus } from './_tsup-dts-rollup.js';
+export { MutationScope } from './_tsup-dts-rollup.js';
+export { MutationMeta } from './_tsup-dts-rollup.js';
+export { MutationFunctionContext } from './_tsup-dts-rollup.js';
+export { MutationFunction } from './_tsup-dts-rollup.js';
+export { MutationOptions } from './_tsup-dts-rollup.js';
+export { MutationObserverOptions } from './_tsup-dts-rollup.js';
+export { MutateOptions } from './_tsup-dts-rollup.js';
+export { MutateFunction } from './_tsup-dts-rollup.js';
+export { MutationObserverBaseResult } from './_tsup-dts-rollup.js';
+export { MutationObserverIdleResult } from './_tsup-dts-rollup.js';
+export { MutationObserverLoadingResult } from './_tsup-dts-rollup.js';
+export { MutationObserverErrorResult } from './_tsup-dts-rollup.js';
+export { MutationObserverSuccessResult } from './_tsup-dts-rollup.js';
+export { MutationObserverResult } from './_tsup-dts-rollup.js';
+export { QueryClientConfig } from './_tsup-dts-rollup.js';
+export { DefaultOptions } from './_tsup-dts-rollup.js';
+export { CancelOptions } from './_tsup-dts-rollup.js';
+export { SetDataOptions } from './_tsup-dts-rollup.js';
+export { NotifyEventType } from './_tsup-dts-rollup.js';
+export { NotifyEvent } from './_tsup-dts-rollup.js';
