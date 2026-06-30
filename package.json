@@ -1,10 +1,8 @@
 {
-  "name": "@babel/code-frame",
-  "version": "7.29.0",
-  "description": "Generate errors that contain a code frame that point to source locations.",
+  "name": "@babel/generator",
+  "version": "7.29.1",
+  "description": "Turns an AST into code.",
   "author": "The Babel Team (https://babel.dev/team)",
-  "homepage": "https://babel.dev/docs/en/next/babel-code-frame",
-  "bugs": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -12,18 +10,27 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/babel/babel.git",
-    "directory": "packages/babel-code-frame"
+    "directory": "packages/babel-generator"
   },
+  "homepage": "https://babel.dev/docs/en/next/babel-generator",
+  "bugs": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22pkg%3A%20generator%22+is%3Aopen",
   "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
   "dependencies": {
-    "@babel/helper-validator-identifier": "^7.28.5",
-    "js-tokens": "^4.0.0",
-    "picocolors": "^1.1.1"
+    "@babel/parser": "^7.29.0",
+    "@babel/types": "^7.29.0",
+    "@jridgewell/gen-mapping": "^0.3.12",
+    "@jridgewell/trace-mapping": "^0.3.28",
+    "jsesc": "^3.0.2"
   },
   "devDependencies": {
-    "charcodes": "^0.2.0",
-    "import-meta-resolve": "^4.1.0",
-    "strip-ansi": "^4.0.0"
+    "@babel/core": "^7.29.0",
+    "@babel/helper-fixtures": "^7.28.6",
+    "@babel/plugin-transform-typescript": "^7.28.6",
+    "@jridgewell/sourcemap-codec": "^1.5.3",
+    "charcodes": "^0.2.0"
   },
   "engines": {
     "node": ">=6.9.0"
