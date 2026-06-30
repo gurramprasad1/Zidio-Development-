@@ -1,91 +1,77 @@
 {
-  "name": "@eslint-community/regexpp",
-  "version": "4.12.2",
-  "description": "Regular expression parser for ECMAScript.",
-  "keywords": [
-    "regexp",
-    "regular",
-    "expression",
-    "parser",
-    "validator",
-    "ast",
-    "abstract",
-    "syntax",
-    "tree",
-    "ecmascript",
-    "es2015",
-    "es2016",
-    "es2017",
-    "es2018",
-    "es2019",
-    "es2020",
-    "es2021",
-    "annexB"
+  "name": "@humanwhocodes/retry",
+  "version": "0.4.3",
+  "description": "A utility to retry failed async methods.",
+  "type": "module",
+  "main": "dist/retrier.cjs",
+  "module": "dist/retrier.js",
+  "types": "dist/retrier.d.ts",
+  "exports": {
+    "require": {
+      "types": "./dist/retrier.d.cts",
+      "default": "./dist/retrier.cjs"
+    },
+    "import": {
+      "types": "./dist/retrier.d.ts",
+      "default": "./dist/retrier.js"
+    }
+  },
+  "files": [
+    "dist"
   ],
-  "homepage": "https://github.com/eslint-community/regexpp#readme",
-  "bugs": {
-    "url": "https://github.com/eslint-community/regexpp/issues"
+  "engines": {
+    "node": ">=18.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/nzakas"
+  },
+  "scripts": {
+    "build:cts-types": "node -e \"fs.copyFileSync('dist/retrier.d.ts', 'dist/retrier.d.cts')\"",
+    "build": "rollup -c && tsc && npm run build:cts-types",
+    "prepare": "npm run build",
+    "lint": "eslint src/ tests/",
+    "pretest": "npm run build",
+    "test:unit": "mocha tests/retrier.test.js",
+    "test:build": "node tests/pkg.test.cjs && node tests/pkg.test.mjs",
+    "test:jsr": "npx jsr@latest publish --dry-run",
+    "test:emfile": "node tools/check-emfile-handling.js",
+    "test": "npm run test:unit && npm run test:build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/eslint-community/regexpp"
+    "url": "git+https://github.com/humanwhocodes/retry.git"
   },
-  "license": "MIT",
-  "author": "Toru Nagashima",
-  "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "default": "./index.js"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "index",
-  "files": [
-    "index.*"
+  "keywords": [
+    "nodejs",
+    "retry",
+    "async",
+    "promises"
   ],
-  "scripts": {
-    "prebuild": "npm run -s clean",
-    "build": "run-s build:*",
-    "build:tsc": "tsc --module es2015",
-    "build:rollup": "rollup -c",
-    "build:dts": "npm run -s build:tsc -- --removeComments false && dts-bundle --name @eslint-community/regexpp --main .temp/index.d.ts --out ../index.d.ts && prettier --write index.d.ts",
-    "clean": "rimraf .temp index.*",
-    "lint": "eslint . --ext .ts",
-    "test": "nyc _mocha \"test/*.ts\" --reporter dot --timeout 10000",
-    "debug": "mocha --require ts-node/register/transpile-only \"test/*.ts\" --reporter dot --timeout 10000",
-    "update:test": "ts-node scripts/update-fixtures.ts",
-    "update:unicode": "run-s update:unicode:*",
-    "update:unicode:ids": "ts-node scripts/update-unicode-ids.ts",
-    "update:unicode:props": "ts-node scripts/update-unicode-properties.ts",
-    "update:test262:extract": "ts-node -T scripts/extract-test262.ts",
-    "preversion": "npm test && npm run -s build",
-    "postversion": "git push && git push --tags",
-    "prewatch": "npm run -s clean",
-    "watch": "_mocha \"test/*.ts\" --require ts-node/register --reporter dot --timeout 10000 --watch-extensions ts --watch --growl"
-  },
-  "dependencies": {},
+  "author": "Nicholas C. Zaks",
+  "license": "Apache-2.0",
   "devDependencies": {
-    "@eslint-community/eslint-plugin-mysticatea": "^15.5.1",
-    "@rollup/plugin-node-resolve": "^14.1.0",
-    "@types/eslint": "^8.44.3",
-    "@types/jsdom": "^16.2.15",
-    "@types/mocha": "^9.1.1",
-    "@types/node": "^12.20.55",
-    "dts-bundle": "^0.7.3",
-    "eslint": "^8.50.0",
-    "js-tokens": "^8.0.2",
-    "jsdom": "^19.0.0",
-    "mocha": "^9.2.2",
-    "npm-run-all2": "^6.2.2",
-    "nyc": "^14.1.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.79.1",
-    "rollup-plugin-sourcemaps": "^0.6.3",
-    "ts-node": "^10.9.1",
-    "typescript": "~5.0.2"
-  },
-  "engines": {
-    "node": "^12.0.0 || ^14.0.0 || >=16.0.0"
+    "@eslint/js": "^8.49.0",
+    "@rollup/plugin-terser": "0.4.4",
+    "@tsconfig/node16": "^16.1.1",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "20.12.6",
+    "eslint": "^8.21.0",
+    "lint-staged": "15.2.1",
+    "mocha": "^10.3.0",
+    "rollup": "3.29.4",
+    "typescript": "5.4.4",
+    "yorkie": "2.0.0"
   }
 }

@@ -1,177 +1,177 @@
-# @eslint-community/regexpp
+# Retry utility
 
-[![npm version](https://img.shields.io/npm/v/@eslint-community/regexpp.svg)](https://www.npmjs.com/package/@eslint-community/regexpp)
-[![Downloads/month](https://img.shields.io/npm/dm/@eslint-community/regexpp.svg)](http://www.npmtrends.com/@eslint-community/regexpp)
-[![Build Status](https://github.com/eslint-community/regexpp/workflows/CI/badge.svg)](https://github.com/eslint-community/regexpp/actions)
-[![codecov](https://codecov.io/gh/eslint-community/regexpp/branch/main/graph/badge.svg)](https://codecov.io/gh/eslint-community/regexpp)
+by [Nicholas C. Zakas](https://humanwhocodes.com)
 
-A regular expression parser for ECMAScript.
+If you find this useful, please consider supporting my work with a [donation](https://humanwhocodes.com/donate) or [nominate me](https://stars.github.com/nominate/) for a GitHub Star.
 
-## 💿 Installation
+## Description
 
-```bash
-$ npm install @eslint-community/regexpp
+A utility for retrying failed async JavaScript calls based on the error returned.
+
+## Usage
+
+### Node.js
+
+Install using [npm][npm] or [yarn][yarn]:
+
+```
+npm install @humanwhocodes/retry
+
+# or
+
+yarn add @humanwhocodes/retry
 ```
 
-- require Node@^12.0.0 || ^14.0.0 || >=16.0.0.
+Import into your Node.js project:
 
-## 📖 Usage
+```js
+// CommonJS
+const { Retrier } = require("@humanwhocodes/retry");
 
-```ts
-import {
-    AST,
-    RegExpParser,
-    RegExpValidator,
-    RegExpVisitor,
-    parseRegExpLiteral,
-    validateRegExpLiteral,
-    visitRegExpAST
-} from "@eslint-community/regexpp"
+// ESM
+import { Retrier } from "@humanwhocodes/retry";
 ```
 
-### parseRegExpLiteral(source, options?)
+### Deno
 
-Parse a given regular expression literal then make AST object.
+Install using [JSR](https://jsr.io):
 
-This is equivalent to `new RegExpParser(options).parseLiteral(source)`.
+```shell
+deno add @humanwhocodes/retry
 
-- **Parameters:**
-    - `source` (`string | RegExp`) The source code to parse.
-    - `options?` ([`RegExpParser.Options`]) The options to parse.
-- **Return:**
-    - The AST of the regular expression.
+#or
 
-### validateRegExpLiteral(source, options?)
+jsr add @humanwhocodes/retry
+```
 
-Validate a given regular expression literal.
+Then import into your Deno project:
 
-This is equivalent to `new RegExpValidator(options).validateLiteral(source)`.
+```js
+import { Retrier } from "@humanwhocodes/retry";
+```
 
-- **Parameters:**
-    - `source` (`string`) The source code to validate.
-    - `options?` ([`RegExpValidator.Options`]) The options to validate.
+### Bun
 
-### visitRegExpAST(ast, handlers)
+Install using this command:
 
-Visit each node of a given AST.
+```
+bun add @humanwhocodes/retry
+```
 
-This is equivalent to `new RegExpVisitor(handlers).visit(ast)`.
+Import into your Bun project:
 
-- **Parameters:**
-    - `ast` ([`AST.Node`]) The AST to visit.
-    - `handlers` ([`RegExpVisitor.Handlers`]) The callbacks.
+```js
+import { Retrier } from "@humanwhocodes/retry";
+```
 
-### RegExpParser
+### Browser
 
-#### new RegExpParser(options?)
+It's recommended to import the minified version to save bandwidth:
 
-- **Parameters:**
-    - `options?` ([`RegExpParser.Options`]) The options to parse.
+```js
+import { Retrier } from "https://cdn.skypack.dev/@humanwhocodes/retry?min";
+```
 
-#### parser.parseLiteral(source, start?, end?)
+However, you can also import the unminified version for debugging purposes:
 
-Parse a regular expression literal.
+```js
+import { Retrier } from "https://cdn.skypack.dev/@humanwhocodes/retry";
+```
 
-- **Parameters:**
-    - `source` (`string`) The source code to parse. E.g. `"/abc/g"`.
-    - `start?` (`number`) The start index in the source code. Default is `0`.
-    - `end?` (`number`) The end index in the source code. Default is `source.length`.
-- **Return:**
-    - The AST of the regular expression.
+## API
 
-#### parser.parsePattern(source, start?, end?, flags?)
+After importing, create a new instance of `Retrier` and specify the function to run on the error. This function should return `true` if you want the call retried and `false` if not.
 
-Parse a regular expression pattern.
+```js
+// this instance will retry if the specific error code is found
+const retrier = new Retrier(error => {
+    return error.code === "ENFILE" || error.code === "EMFILE";
+});
+```
 
-- **Parameters:**
-    - `source` (`string`) The source code to parse. E.g. `"abc"`.
-    - `start?` (`number`) The start index in the source code. Default is `0`.
-    - `end?` (`number`) The end index in the source code. Default is `source.length`.
-    - `flags?` (`{ unicode?: boolean, unicodeSets?: boolean }`) The flags to enable Unicode mode, and Unicode Set mode.
-- **Return:**
-    - The AST of the regular expression pattern.
+Then, call the `retry()` method around the function you'd like to retry, such as:
 
-#### parser.parseFlags(source, start?, end?)
+```js
+import fs from "fs/promises";
 
-Parse a regular expression flags.
+const retrier = new Retrier(error => {
+    return error.code === "ENFILE" || error.code === "EMFILE";
+});
 
-- **Parameters:**
-    - `source` (`string`) The source code to parse. E.g. `"gim"`.
-    - `start?` (`number`) The start index in the source code. Default is `0`.
-    - `end?` (`number`) The end index in the source code. Default is `source.length`.
-- **Return:**
-    - The AST of the regular expression flags.
+const text = await retrier.retry(() => fs.readFile("README.md", "utf8"));
+```
 
-### RegExpValidator
+The `retry()` method will either pass through the result on success or wait and retry on failure. Any error that isn't caught by the retrier is automatically rejected so the end result is a transparent passing through of both success and failure.
 
-#### new RegExpValidator(options)
+### Setting a Timeout
 
-- **Parameters:**
-    - `options` ([`RegExpValidator.Options`]) The options to validate.
+You can control how long a task will attempt to retry before giving up by passing the `timeout` option to the `Retrier` constructor. By default, the timeout is one minute.
 
-#### validator.validateLiteral(source, start, end)
+```js
+import fs from "fs/promises";
 
-Validate a regular expression literal.
+const retrier = new Retrier(error => {
+    return error.code === "ENFILE" || error.code === "EMFILE";
+}, { timeout: 100_000 });
 
-- **Parameters:**
-    - `source` (`string`) The source code to validate.
-    - `start?` (`number`) The start index in the source code. Default is `0`.
-    - `end?` (`number`) The end index in the source code. Default is `source.length`.
+const text = await retrier.retry(() => fs.readFile("README.md", "utf8"));
+```
 
-#### validator.validatePattern(source, start, end, flags)
+When a call times out, it rejects the first error that was received from calling the function.
 
-Validate a regular expression pattern.
+### Setting a Concurrency Limit
 
-- **Parameters:**
-    - `source` (`string`) The source code to validate.
-    - `start?` (`number`) The start index in the source code. Default is `0`.
-    - `end?` (`number`) The end index in the source code. Default is `source.length`.
-    - `flags?` (`{ unicode?: boolean, unicodeSets?: boolean }`) The flags to enable Unicode mode, and Unicode Set mode.
+When processing a large number of function calls, you can limit the number of concurrent function calls by passing the `concurrency` option to the `Retrier` constructor. By default, `concurrency` is 1000.
 
-#### validator.validateFlags(source, start, end)
+```js
+import fs from "fs/promises";
 
-Validate a regular expression flags.
+const retrier = new Retrier(error => {
+    return error.code === "ENFILE" || error.code === "EMFILE";
+}, { concurrency: 100 });
 
-- **Parameters:**
-    - `source` (`string`) The source code to validate.
-    - `start?` (`number`) The start index in the source code. Default is `0`.
-    - `end?` (`number`) The end index in the source code. Default is `source.length`.
+const filenames = getFilenames();
+const contents = await Promise.all(
+    filenames.map(filename => retrier.retry(() => fs.readFile(filename, "utf8"))
+);
+```
 
-### RegExpVisitor
+### Aborting with `AbortSignal`
 
-#### new RegExpVisitor(handlers)
+You can also pass an `AbortSignal` to cancel a retry:
 
-- **Parameters:**
-    - `handlers` ([`RegExpVisitor.Handlers`]) The callbacks.
+```js
+import fs from "fs/promises";
 
-#### visitor.visit(ast)
+const controller = new AbortController();
+const retrier = new Retrier(error => {
+    return error.code === "ENFILE" || error.code === "EMFILE";
+});
 
-Validate a regular expression literal.
+const text = await retrier.retry(
+    () => fs.readFile("README.md", "utf8"),
+    { signal: controller.signal }
+);
+```
 
-- **Parameters:**
-    - `ast` ([`AST.Node`]) The AST to visit.
+## Developer Setup
 
-## 📰 Changelog
+1. Fork the repository
+2. Clone your fork
+3. Run `npm install` to setup dependencies
+4. Run `npm test` to run tests
 
-- [GitHub Releases](https://github.com/eslint-community/regexpp/releases)
+### Debug Output
 
-## 🍻 Contributing
+Enable debugging output by setting the `DEBUG` environment variable to `"@hwc/retry"` before running.
 
-Welcome contributing!
+## License
 
-Please use GitHub's Issues/PRs.
+Apache 2.0
 
-### Development Tools
+## Prior Art
 
-- `npm test` runs tests and measures coverage.
-- `npm run build` compiles TypeScript source code to `index.js`, `index.js.map`, and `index.d.ts`.
-- `npm run clean` removes the temporary files which are created by `npm test` and `npm run build`.
-- `npm run lint` runs ESLint.
-- `npm run update:test` updates test fixtures.
-- `npm run update:ids` updates `src/unicode/ids.ts`.
-- `npm run watch` runs tests with `--watch` option.
+This utility is inspired by, and contains code from [`graceful-fs`](https://github.com/isaacs/node-graceful-fs).
 
-[`AST.Node`]: src/ast.ts#L4
-[`RegExpParser.Options`]: src/parser.ts#L743
-[`RegExpValidator.Options`]: src/validator.ts#L220
-[`RegExpVisitor.Handlers`]: src/visitor.ts#L291
+[npm]: https://npmjs.com/
+[yarn]: https://yarnpkg.com/
