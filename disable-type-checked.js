@@ -5,8 +5,13 @@
 //
 // For developers working in the typescript-eslint monorepo:
 // You can regenerate it using `pnpm run generate-configs`
-module.exports = {
-    parserOptions: { program: null, project: false, projectService: false },
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * A utility ruleset that will disable type-aware linting and all type-aware rules available in our project.
+ * @see {@link https://typescript-eslint.io/users/configs#disable-type-checked}
+ */
+exports.default = (_plugin, _parser) => ({
+    name: 'typescript-eslint/disable-type-checked',
     rules: {
         '@typescript-eslint/await-thenable': 'off',
         '@typescript-eslint/consistent-return': 'off',
@@ -70,4 +75,7 @@ module.exports = {
         '@typescript-eslint/unbound-method': 'off',
         '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
     },
-};
+    languageOptions: {
+        parserOptions: { program: null, project: false, projectService: false },
+    },
+});

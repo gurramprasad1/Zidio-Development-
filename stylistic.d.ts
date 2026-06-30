@@ -1,20 +1,7 @@
-declare const _default: {
-    extends: string[];
-    rules: {
-        '@typescript-eslint/adjacent-overload-signatures': "error";
-        '@typescript-eslint/array-type': "error";
-        '@typescript-eslint/ban-tslint-comment': "error";
-        '@typescript-eslint/class-literal-property-style': "error";
-        '@typescript-eslint/consistent-generic-constructors': "error";
-        '@typescript-eslint/consistent-indexed-object-style': "error";
-        '@typescript-eslint/consistent-type-assertions': "error";
-        '@typescript-eslint/consistent-type-definitions': "error";
-        '@typescript-eslint/no-confusing-non-null-assertion': "error";
-        'no-empty-function': "off";
-        '@typescript-eslint/no-empty-function': "error";
-        '@typescript-eslint/no-inferrable-types': "error";
-        '@typescript-eslint/prefer-for-of': "error";
-        '@typescript-eslint/prefer-function-type': "error";
-    };
-};
-export = _default;
+import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
+/**
+ * Rules considered to be best practice for modern TypeScript codebases, but that do not impact program logic.
+ * @see {@link https://typescript-eslint.io/users/configs#stylistic}
+ */
+declare const _default: (plugin: FlatConfig.Plugin, parser: FlatConfig.Parser) => FlatConfig.ConfigArray;
+export default _default;

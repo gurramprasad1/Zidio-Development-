@@ -1,15 +1,7 @@
-declare const _default: {
-    extends: string[];
-    rules: {
-        'dot-notation': "off";
-        '@typescript-eslint/dot-notation': "error";
-        '@typescript-eslint/non-nullable-type-assertion-style': "error";
-        '@typescript-eslint/prefer-find': "error";
-        '@typescript-eslint/prefer-includes': "error";
-        '@typescript-eslint/prefer-nullish-coalescing': "error";
-        '@typescript-eslint/prefer-optional-chain': "error";
-        '@typescript-eslint/prefer-regexp-exec': "error";
-        '@typescript-eslint/prefer-string-starts-ends-with': "error";
-    };
-};
-export = _default;
+import type { FlatConfig } from '@typescript-eslint/utils/ts-eslint';
+/**
+ * A version of `stylistic` that only contains type-checked rules and disables of any corresponding core ESLint rules.
+ * @see {@link https://typescript-eslint.io/users/configs#stylistic-type-checked-only}
+ */
+declare const _default: (plugin: FlatConfig.Plugin, parser: FlatConfig.Parser) => FlatConfig.ConfigArray;
+export default _default;
