@@ -1,12 +1,16 @@
-import * as React from 'react';
-
+type Measurable = {
+    getBoundingClientRect(): DOMRect;
+};
 /**
- * On the server, React emits a warning when calling `useLayoutEffect`.
- * This is because neither `useLayoutEffect` nor `useEffect` run on the server.
- * We use this safe version which suppresses the warning by replacing it with a noop on the server.
- *
- * See: https://reactjs.org/docs/hooks-reference.html#uselayouteffect
+ * Observes an element's rectangle on screen (getBoundingClientRect)
+ * This is useful to track elements on the screen and attach other elements
+ * that might be in different layers, etc.
  */
-declare const useLayoutEffect: typeof React.useLayoutEffect;
+declare function observeElementRect(
+/** The element whose rect to observe */
+elementToObserve: Measurable, 
+/** The callback which will be called when the rect changes */
+callback: CallbackFn): () => void;
+type CallbackFn = (rect: DOMRect) => void;
 
-export { useLayoutEffect };
+export { type Measurable, observeElementRect };
