@@ -1,64 +1,40 @@
 {
-  "name": "@tanstack/query-core",
-  "version": "5.96.2",
-  "description": "The framework agnostic core that powers TanStack Query",
-  "author": "tannerlinsley",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TanStack/query.git",
-    "directory": "packages/query-core"
-  },
-  "homepage": "https://tanstack.com/query",
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/tannerlinsley"
-  },
-  "type": "module",
-  "types": "build/legacy/index.d.ts",
-  "main": "build/legacy/index.cjs",
-  "module": "build/legacy/index.js",
-  "react-native": "src/index.ts",
-  "exports": {
-    ".": {
-      "@tanstack/custom-condition": "./src/index.ts",
-      "import": {
-        "types": "./build/modern/index.d.ts",
-        "default": "./build/modern/index.js"
-      },
-      "require": {
-        "types": "./build/modern/index.d.cts",
-        "default": "./build/modern/index.cjs"
-      }
+    "name": "@types/json-schema",
+    "version": "7.0.15",
+    "description": "TypeScript definitions for json-schema",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/json-schema",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Boris Cherny",
+            "githubUsername": "bcherny",
+            "url": "https://github.com/bcherny"
+        },
+        {
+            "name": "Lucian Buzzo",
+            "githubUsername": "lucianbuzzo",
+            "url": "https://github.com/lucianbuzzo"
+        },
+        {
+            "name": "Roland Groza",
+            "githubUsername": "rolandjitsu",
+            "url": "https://github.com/rolandjitsu"
+        },
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK",
+            "url": "https://github.com/JasonHK"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/json-schema"
     },
-    "./package.json": "./package.json"
-  },
-  "sideEffects": false,
-  "files": [
-    "build",
-    "src",
-    "!src/__tests__"
-  ],
-  "devDependencies": {
-    "npm-run-all2": "^5.0.0",
-    "@tanstack/query-test-utils": "0.0.0"
-  },
-  "scripts": {
-    "clean": "premove ./build ./coverage ./dist-ts",
-    "compile": "tsc --build",
-    "test:eslint": "eslint --concurrency=auto ./src",
-    "test:types": "npm-run-all --serial test:types:*",
-    "test:types:ts54": "node ../../node_modules/typescript54/lib/tsc.js --build tsconfig.legacy.json",
-    "test:types:ts55": "node ../../node_modules/typescript55/lib/tsc.js --build tsconfig.legacy.json",
-    "test:types:ts56": "node ../../node_modules/typescript56/lib/tsc.js --build tsconfig.legacy.json",
-    "test:types:ts57": "node ../../node_modules/typescript57/lib/tsc.js --build tsconfig.legacy.json",
-    "test:types:ts58": "node ../../node_modules/typescript58/lib/tsc.js --build tsconfig.legacy.json",
-    "test:types:ts59": "node ../../node_modules/typescript59/lib/tsc.js --build tsconfig.legacy.json",
-    "test:types:tscurrent": "tsc --build",
-    "test:types:ts60": "node ../../node_modules/typescript60/lib/tsc.js --build tsconfig.legacy.json",
-    "test:lib": "vitest",
-    "test:lib:dev": "pnpm run test:lib --watch",
-    "test:build": "publint --strict && attw --pack",
-    "build": "tsup --tsconfig tsconfig.prod.json"
-  }
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "79984fd70cd25c3f7d72b84368778c763c89728ea0073832d745d4691b705257",
+    "typeScriptVersion": "4.5"
 }

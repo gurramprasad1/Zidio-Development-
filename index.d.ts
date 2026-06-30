@@ -1,206 +1,101 @@
-export { useQueries } from './_tsup-dts-rollup.js';
-export { QueriesResults } from './_tsup-dts-rollup.js';
-export { QueriesOptions } from './_tsup-dts-rollup.js';
-export { useQuery } from './_tsup-dts-rollup.js';
-export { useSuspenseQuery } from './_tsup-dts-rollup.js';
-export { useSuspenseInfiniteQuery } from './_tsup-dts-rollup.js';
-export { useSuspenseQueries } from './_tsup-dts-rollup.js';
-export { SuspenseQueriesResults } from './_tsup-dts-rollup.js';
-export { SuspenseQueriesOptions } from './_tsup-dts-rollup.js';
-export { usePrefetchQuery } from './_tsup-dts-rollup.js';
-export { usePrefetchInfiniteQuery } from './_tsup-dts-rollup.js';
-export { queryOptions } from './_tsup-dts-rollup.js';
-export { DefinedInitialDataOptions } from './_tsup-dts-rollup.js';
-export { UndefinedInitialDataOptions } from './_tsup-dts-rollup.js';
-export { UnusedSkipTokenOptions } from './_tsup-dts-rollup.js';
-export { infiniteQueryOptions } from './_tsup-dts-rollup.js';
-export { DefinedInitialDataInfiniteOptions } from './_tsup-dts-rollup.js';
-export { UndefinedInitialDataInfiniteOptions } from './_tsup-dts-rollup.js';
-export { UnusedSkipTokenInfiniteOptions } from './_tsup-dts-rollup.js';
-export { QueryClientContext_alias_1 as QueryClientContext } from './_tsup-dts-rollup.js';
-export { QueryClientProvider_alias_1 as QueryClientProvider } from './_tsup-dts-rollup.js';
-export { useQueryClient_alias_1 as useQueryClient } from './_tsup-dts-rollup.js';
-export { QueryClientProviderProps_alias_1 as QueryClientProviderProps } from './_tsup-dts-rollup.js';
-export { QueryErrorResetBoundaryProps_alias_1 as QueryErrorResetBoundaryProps } from './_tsup-dts-rollup.js';
-export { HydrationBoundary_alias_1 as HydrationBoundary } from './_tsup-dts-rollup.js';
-export { HydrationBoundaryProps_alias_1 as HydrationBoundaryProps } from './_tsup-dts-rollup.js';
-export { QueryErrorClearResetFunction_alias_1 as QueryErrorClearResetFunction } from './_tsup-dts-rollup.js';
-export { QueryErrorIsResetFunction_alias_1 as QueryErrorIsResetFunction } from './_tsup-dts-rollup.js';
-export { QueryErrorResetBoundaryFunction_alias_1 as QueryErrorResetBoundaryFunction } from './_tsup-dts-rollup.js';
-export { QueryErrorResetFunction_alias_1 as QueryErrorResetFunction } from './_tsup-dts-rollup.js';
-export { QueryErrorResetBoundary_alias_1 as QueryErrorResetBoundary } from './_tsup-dts-rollup.js';
-export { useQueryErrorResetBoundary_alias_1 as useQueryErrorResetBoundary } from './_tsup-dts-rollup.js';
-export { useIsFetching } from './_tsup-dts-rollup.js';
-export { useIsMutating } from './_tsup-dts-rollup.js';
-export { useMutationState } from './_tsup-dts-rollup.js';
-export { useMutation } from './_tsup-dts-rollup.js';
-export { mutationOptions } from './_tsup-dts-rollup.js';
-export { useInfiniteQuery } from './_tsup-dts-rollup.js';
-export { useIsRestoring_alias_1 as useIsRestoring } from './_tsup-dts-rollup.js';
-export { IsRestoringProvider_alias_1 as IsRestoringProvider } from './_tsup-dts-rollup.js';
-export { focusManager } from './_tsup-dts-rollup.js';
-export { environmentManager } from './_tsup-dts-rollup.js';
-export { defaultShouldDehydrateMutation } from './_tsup-dts-rollup.js';
-export { defaultShouldDehydrateQuery } from './_tsup-dts-rollup.js';
-export { dehydrate } from './_tsup-dts-rollup.js';
-export { hydrate } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserver } from './_tsup-dts-rollup.js';
-export { MutationCache } from './_tsup-dts-rollup.js';
-export { MutationCacheNotifyEvent } from './_tsup-dts-rollup.js';
-export { MutationObserver } from './_tsup-dts-rollup.js';
-export { defaultScheduler } from './_tsup-dts-rollup.js';
-export { notifyManager } from './_tsup-dts-rollup.js';
-export { onlineManager } from './_tsup-dts-rollup.js';
-export { QueriesObserver } from './_tsup-dts-rollup.js';
-export { QueryCache } from './_tsup-dts-rollup.js';
-export { QueryCacheNotifyEvent } from './_tsup-dts-rollup.js';
-export { QueryClient } from './_tsup-dts-rollup.js';
-export { QueryObserver } from './_tsup-dts-rollup.js';
-export { CancelledError } from './_tsup-dts-rollup.js';
-export { isCancelledError } from './_tsup-dts-rollup.js';
-export { timeoutManager } from './_tsup-dts-rollup.js';
-export { ManagedTimerId } from './_tsup-dts-rollup.js';
-export { TimeoutCallback } from './_tsup-dts-rollup.js';
-export { TimeoutProvider } from './_tsup-dts-rollup.js';
-export { hashKey } from './_tsup-dts-rollup.js';
-export { isServer } from './_tsup-dts-rollup.js';
-export { keepPreviousData } from './_tsup-dts-rollup.js';
-export { matchMutation } from './_tsup-dts-rollup.js';
-export { matchQuery } from './_tsup-dts-rollup.js';
-export { noop } from './_tsup-dts-rollup.js';
-export { partialMatchKey } from './_tsup-dts-rollup.js';
-export { replaceEqualDeep } from './_tsup-dts-rollup.js';
-export { shouldThrowError } from './_tsup-dts-rollup.js';
-export { skipToken } from './_tsup-dts-rollup.js';
-export { MutationFilters } from './_tsup-dts-rollup.js';
-export { QueryFilters } from './_tsup-dts-rollup.js';
-export { SkipToken } from './_tsup-dts-rollup.js';
-export { Updater } from './_tsup-dts-rollup.js';
-export { experimental_streamedQuery } from './_tsup-dts-rollup.js';
-export { DehydratedState } from './_tsup-dts-rollup.js';
-export { DehydrateOptions } from './_tsup-dts-rollup.js';
-export { HydrateOptions } from './_tsup-dts-rollup.js';
-export { Mutation } from './_tsup-dts-rollup.js';
-export { MutationState } from './_tsup-dts-rollup.js';
-export { QueriesObserverOptions } from './_tsup-dts-rollup.js';
-export { Query } from './_tsup-dts-rollup.js';
-export { QueryState } from './_tsup-dts-rollup.js';
-export { NonUndefinedGuard } from './_tsup-dts-rollup.js';
-export { DistributiveOmit } from './_tsup-dts-rollup.js';
-export { OmitKeyof } from './_tsup-dts-rollup.js';
-export { Override } from './_tsup-dts-rollup.js';
-export { NoInfer } from './_tsup-dts-rollup.js';
-export { Register } from './_tsup-dts-rollup.js';
-export { DefaultError } from './_tsup-dts-rollup.js';
-export { QueryKey } from './_tsup-dts-rollup.js';
-export { dataTagSymbol } from './_tsup-dts-rollup.js';
-export { dataTagErrorSymbol } from './_tsup-dts-rollup.js';
-export { unsetMarker } from './_tsup-dts-rollup.js';
-export { UnsetMarker } from './_tsup-dts-rollup.js';
-export { AnyDataTag } from './_tsup-dts-rollup.js';
-export { DataTag } from './_tsup-dts-rollup.js';
-export { InferDataFromTag } from './_tsup-dts-rollup.js';
-export { InferErrorFromTag } from './_tsup-dts-rollup.js';
-export { QueryFunction } from './_tsup-dts-rollup.js';
-export { StaleTime } from './_tsup-dts-rollup.js';
-export { StaleTimeFunction } from './_tsup-dts-rollup.js';
-export { Enabled } from './_tsup-dts-rollup.js';
-export { QueryPersister } from './_tsup-dts-rollup.js';
-export { QueryFunctionContext } from './_tsup-dts-rollup.js';
-export { InitialDataFunction } from './_tsup-dts-rollup.js';
-export { PlaceholderDataFunction } from './_tsup-dts-rollup.js';
-export { QueriesPlaceholderDataFunction } from './_tsup-dts-rollup.js';
-export { QueryKeyHashFunction } from './_tsup-dts-rollup.js';
-export { GetPreviousPageParamFunction } from './_tsup-dts-rollup.js';
-export { GetNextPageParamFunction } from './_tsup-dts-rollup.js';
-export { InfiniteData } from './_tsup-dts-rollup.js';
-export { QueryMeta } from './_tsup-dts-rollup.js';
-export { NetworkMode } from './_tsup-dts-rollup.js';
-export { NotifyOnChangeProps } from './_tsup-dts-rollup.js';
-export { QueryOptions } from './_tsup-dts-rollup.js';
-export { InitialPageParam } from './_tsup-dts-rollup.js';
-export { InfiniteQueryPageParamsOptions } from './_tsup-dts-rollup.js';
-export { ThrowOnError } from './_tsup-dts-rollup.js';
-export { QueryObserverOptions } from './_tsup-dts-rollup.js';
-export { WithRequired } from './_tsup-dts-rollup.js';
-export { DefaultedQueryObserverOptions } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverOptions } from './_tsup-dts-rollup.js';
-export { DefaultedInfiniteQueryObserverOptions } from './_tsup-dts-rollup.js';
-export { FetchQueryOptions } from './_tsup-dts-rollup.js';
-export { EnsureQueryDataOptions } from './_tsup-dts-rollup.js';
-export { EnsureInfiniteQueryDataOptions } from './_tsup-dts-rollup.js';
-export { FetchInfiniteQueryOptions } from './_tsup-dts-rollup.js';
-export { ResultOptions } from './_tsup-dts-rollup.js';
-export { RefetchOptions } from './_tsup-dts-rollup.js';
-export { InvalidateQueryFilters } from './_tsup-dts-rollup.js';
-export { RefetchQueryFilters } from './_tsup-dts-rollup.js';
-export { InvalidateOptions } from './_tsup-dts-rollup.js';
-export { ResetOptions } from './_tsup-dts-rollup.js';
-export { FetchNextPageOptions } from './_tsup-dts-rollup.js';
-export { FetchPreviousPageOptions } from './_tsup-dts-rollup.js';
-export { QueryStatus } from './_tsup-dts-rollup.js';
-export { FetchStatus } from './_tsup-dts-rollup.js';
-export { QueryObserverBaseResult } from './_tsup-dts-rollup.js';
-export { QueryObserverPendingResult } from './_tsup-dts-rollup.js';
-export { QueryObserverLoadingResult } from './_tsup-dts-rollup.js';
-export { QueryObserverLoadingErrorResult } from './_tsup-dts-rollup.js';
-export { QueryObserverRefetchErrorResult } from './_tsup-dts-rollup.js';
-export { QueryObserverSuccessResult } from './_tsup-dts-rollup.js';
-export { QueryObserverPlaceholderResult } from './_tsup-dts-rollup.js';
-export { DefinedQueryObserverResult } from './_tsup-dts-rollup.js';
-export { QueryObserverResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverBaseResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverPendingResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverLoadingResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverLoadingErrorResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverRefetchErrorResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverSuccessResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverPlaceholderResult } from './_tsup-dts-rollup.js';
-export { DefinedInfiniteQueryObserverResult } from './_tsup-dts-rollup.js';
-export { InfiniteQueryObserverResult } from './_tsup-dts-rollup.js';
-export { MutationKey } from './_tsup-dts-rollup.js';
-export { MutationStatus } from './_tsup-dts-rollup.js';
-export { MutationScope } from './_tsup-dts-rollup.js';
-export { MutationMeta } from './_tsup-dts-rollup.js';
-export { MutationFunctionContext } from './_tsup-dts-rollup.js';
-export { MutationFunction } from './_tsup-dts-rollup.js';
-export { MutationOptions } from './_tsup-dts-rollup.js';
-export { MutationObserverOptions } from './_tsup-dts-rollup.js';
-export { MutateOptions } from './_tsup-dts-rollup.js';
-export { MutateFunction } from './_tsup-dts-rollup.js';
-export { MutationObserverBaseResult } from './_tsup-dts-rollup.js';
-export { MutationObserverIdleResult } from './_tsup-dts-rollup.js';
-export { MutationObserverLoadingResult } from './_tsup-dts-rollup.js';
-export { MutationObserverErrorResult } from './_tsup-dts-rollup.js';
-export { MutationObserverSuccessResult } from './_tsup-dts-rollup.js';
-export { MutationObserverResult } from './_tsup-dts-rollup.js';
-export { QueryClientConfig } from './_tsup-dts-rollup.js';
-export { DefaultOptions } from './_tsup-dts-rollup.js';
-export { CancelOptions } from './_tsup-dts-rollup.js';
-export { SetDataOptions } from './_tsup-dts-rollup.js';
-export { NotifyEventType } from './_tsup-dts-rollup.js';
-export { NotifyEvent } from './_tsup-dts-rollup.js';
-export { AnyUseBaseQueryOptions } from './_tsup-dts-rollup.js';
-export { UseBaseQueryOptions } from './_tsup-dts-rollup.js';
-export { UsePrefetchQueryOptions } from './_tsup-dts-rollup.js';
-export { AnyUseQueryOptions } from './_tsup-dts-rollup.js';
-export { UseQueryOptions } from './_tsup-dts-rollup.js';
-export { AnyUseSuspenseQueryOptions } from './_tsup-dts-rollup.js';
-export { UseSuspenseQueryOptions } from './_tsup-dts-rollup.js';
-export { AnyUseInfiniteQueryOptions } from './_tsup-dts-rollup.js';
-export { UseInfiniteQueryOptions } from './_tsup-dts-rollup.js';
-export { AnyUseSuspenseInfiniteQueryOptions } from './_tsup-dts-rollup.js';
-export { UseSuspenseInfiniteQueryOptions } from './_tsup-dts-rollup.js';
-export { UseBaseQueryResult } from './_tsup-dts-rollup.js';
-export { UseQueryResult } from './_tsup-dts-rollup.js';
-export { UseSuspenseQueryResult } from './_tsup-dts-rollup.js';
-export { DefinedUseQueryResult } from './_tsup-dts-rollup.js';
-export { UseInfiniteQueryResult } from './_tsup-dts-rollup.js';
-export { DefinedUseInfiniteQueryResult } from './_tsup-dts-rollup.js';
-export { UseSuspenseInfiniteQueryResult } from './_tsup-dts-rollup.js';
-export { AnyUseMutationOptions } from './_tsup-dts-rollup.js';
-export { UseMutationOptions } from './_tsup-dts-rollup.js';
-export { UseMutateFunction } from './_tsup-dts-rollup.js';
-export { UseMutateAsyncFunction } from './_tsup-dts-rollup.js';
-export { UseBaseMutationResult } from './_tsup-dts-rollup.js';
-export { UseMutationResult } from './_tsup-dts-rollup.js';
+/**
+ * License for programmatically and manually incorporated
+ * documentation aka. `JSDoc` from https://github.com/nodejs/node/tree/master/doc
+ *
+ * Copyright Node.js contributors. All rights reserved.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
+
+// NOTE: These definitions support Node.js and TypeScript 5.8+.
+
+// Reference required TypeScript libraries:
+/// <reference lib="es2020" />
+/// <reference lib="esnext.disposable" />
+/// <reference lib="esnext.float16" />
+
+// Iterator definitions required for compatibility with TypeScript <5.6:
+/// <reference path="compatibility/iterators.d.ts" />
+
+// Definitions for Node.js modules specific to TypeScript 5.7+:
+/// <reference path="globals.typedarray.d.ts" />
+/// <reference path="buffer.buffer.d.ts" />
+
+// Definitions for Node.js modules that are not specific to any version of TypeScript:
+/// <reference path="globals.d.ts" />
+/// <reference path="web-globals/abortcontroller.d.ts" />
+/// <reference path="web-globals/crypto.d.ts" />
+/// <reference path="web-globals/domexception.d.ts" />
+/// <reference path="web-globals/events.d.ts" />
+/// <reference path="web-globals/fetch.d.ts" />
+/// <reference path="web-globals/navigator.d.ts" />
+/// <reference path="web-globals/storage.d.ts" />
+/// <reference path="web-globals/streams.d.ts" />
+/// <reference path="assert.d.ts" />
+/// <reference path="assert/strict.d.ts" />
+/// <reference path="async_hooks.d.ts" />
+/// <reference path="buffer.d.ts" />
+/// <reference path="child_process.d.ts" />
+/// <reference path="cluster.d.ts" />
+/// <reference path="console.d.ts" />
+/// <reference path="constants.d.ts" />
+/// <reference path="crypto.d.ts" />
+/// <reference path="dgram.d.ts" />
+/// <reference path="diagnostics_channel.d.ts" />
+/// <reference path="dns.d.ts" />
+/// <reference path="dns/promises.d.ts" />
+/// <reference path="domain.d.ts" />
+/// <reference path="events.d.ts" />
+/// <reference path="fs.d.ts" />
+/// <reference path="fs/promises.d.ts" />
+/// <reference path="http.d.ts" />
+/// <reference path="http2.d.ts" />
+/// <reference path="https.d.ts" />
+/// <reference path="inspector.d.ts" />
+/// <reference path="inspector.generated.d.ts" />
+/// <reference path="module.d.ts" />
+/// <reference path="net.d.ts" />
+/// <reference path="os.d.ts" />
+/// <reference path="path.d.ts" />
+/// <reference path="perf_hooks.d.ts" />
+/// <reference path="process.d.ts" />
+/// <reference path="punycode.d.ts" />
+/// <reference path="querystring.d.ts" />
+/// <reference path="readline.d.ts" />
+/// <reference path="readline/promises.d.ts" />
+/// <reference path="repl.d.ts" />
+/// <reference path="sea.d.ts" />
+/// <reference path="sqlite.d.ts" />
+/// <reference path="stream.d.ts" />
+/// <reference path="stream/promises.d.ts" />
+/// <reference path="stream/consumers.d.ts" />
+/// <reference path="stream/web.d.ts" />
+/// <reference path="string_decoder.d.ts" />
+/// <reference path="test.d.ts" />
+/// <reference path="timers.d.ts" />
+/// <reference path="timers/promises.d.ts" />
+/// <reference path="tls.d.ts" />
+/// <reference path="trace_events.d.ts" />
+/// <reference path="tty.d.ts" />
+/// <reference path="url.d.ts" />
+/// <reference path="util.d.ts" />
+/// <reference path="v8.d.ts" />
+/// <reference path="vm.d.ts" />
+/// <reference path="wasi.d.ts" />
+/// <reference path="worker_threads.d.ts" />
+/// <reference path="zlib.d.ts" />
