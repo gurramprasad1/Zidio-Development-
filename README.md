@@ -1,3 +1,5 @@
-# `react-separator`
+# `react-use-is-hydrated`
 
-View docs [here](https://radix-ui.com/primitives/docs/components/separator).
+## Usage
+
+This is an internal utility, not intended for public usage.

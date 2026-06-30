@@ -1,17 +1,12 @@
 import * as React from 'react';
 
-interface SlotProps extends React.HTMLAttributes<HTMLElement> {
-    children?: React.ReactNode;
-}
-declare function createSlot(ownerName: string): React.ForwardRefExoticComponent<SlotProps & React.RefAttributes<HTMLElement>>;
-declare const Slot: React.ForwardRefExoticComponent<SlotProps & React.RefAttributes<HTMLElement>>;
-interface SlottableProps {
-    children: React.ReactNode;
-}
-interface SlottableComponent extends React.FC<SlottableProps> {
-    __radixId: symbol;
-}
-declare function createSlottable(ownerName: string): SlottableComponent;
-declare const Slottable: SlottableComponent;
+/**
+ * On the server, React emits a warning when calling `useLayoutEffect`.
+ * This is because neither `useLayoutEffect` nor `useEffect` run on the server.
+ * We use this safe version which suppresses the warning by replacing it with a noop on the server.
+ *
+ * See: https://reactjs.org/docs/hooks-reference.html#uselayouteffect
+ */
+declare const useLayoutEffect: typeof React.useLayoutEffect;
 
-export { Slot as Root, Slot, type SlotProps, Slottable, createSlot, createSlottable };
+export { useLayoutEffect };

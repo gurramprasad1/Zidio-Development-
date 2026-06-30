@@ -1,28 +1,18 @@
 {
-  "name": "@radix-ui/react-slot",
-  "version": "1.2.3",
+  "name": "@radix-ui/react-use-is-hydrated",
+  "version": "0.1.0",
   "license": "MIT",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "files": [
+    "src",
     "dist",
     "README.md"
   ],
   "sideEffects": false,
   "dependencies": {
-    "@radix-ui/react-compose-refs": "1.1.2"
-  },
-  "devDependencies": {
-    "@types/react": "^19.0.7",
-    "@types/react-dom": "^19.0.3",
-    "eslint": "^9.18.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "typescript": "^5.7.3",
-    "@repo/eslint-config": "0.0.0",
-    "@repo/typescript-config": "0.0.0",
-    "@repo/builder": "0.0.0"
+    "use-sync-external-store": "^1.5.0"
   },
   "peerDependencies": {
     "@types/react": "*",
@@ -32,6 +22,18 @@
     "@types/react": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@types/use-sync-external-store": "^0.0.6",
+    "eslint": "^9.18.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.7.3",
+    "@repo/builder": "0.0.0",
+    "@repo/eslint-config": "0.0.0",
+    "@repo/typescript-config": "0.0.0"
   },
   "homepage": "https://radix-ui.com/primitives",
   "repository": {
