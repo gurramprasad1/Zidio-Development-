@@ -1,90 +1,97 @@
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.forwardAsync = forwardAsync;
-exports.isAsync = void 0;
-exports.isThenable = isThenable;
-exports.maybeAsync = maybeAsync;
-exports.waitFor = exports.onFirstPause = void 0;
-function _gensync() {
-  const data = require("gensync");
-  _gensync = function () {
-    return data;
-  };
-  return data;
-}
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-const runGenerator = _gensync()(function* (item) {
-  return yield* item;
-});
-const isAsync = exports.isAsync = _gensync()({
-  sync: () => false,
-  errback: cb => cb(null, true)
-});
-function maybeAsync(fn, message) {
-  return _gensync()({
-    sync(...args) {
-      const result = fn.apply(this, args);
-      if (isThenable(result)) throw new Error(message);
-      return result;
-    },
-    async(...args) {
-      return Promise.resolve(fn.apply(this, args));
+Object.defineProperty(exports, "__esModule", { value: true });
+const events_1 = require("events");
+const fsScandir = require("@nodelib/fs.scandir");
+const fastq = require("fastq");
+const common = require("./common");
+const reader_1 = require("./reader");
+class AsyncReader extends reader_1.default {
+    constructor(_root, _settings) {
+        super(_root, _settings);
+        this._settings = _settings;
+        this._scandir = fsScandir.scandir;
+        this._emitter = new events_1.EventEmitter();
+        this._queue = fastq(this._worker.bind(this), this._settings.concurrency);
+        this._isFatalError = false;
+        this._isDestroyed = false;
+        this._queue.drain = () => {
+            if (!this._isFatalError) {
+                this._emitter.emit('end');
+            }
+        };
     }
-  });
-}
-const withKind = _gensync()({
-  sync: cb => cb("sync"),
-  async: function () {
-    var _ref = _asyncToGenerator(function* (cb) {
-      return cb("async");
-    });
-    return function async(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }()
-});
-function forwardAsync(action, cb) {
-  const g = _gensync()(action);
-  return withKind(kind => {
-    const adapted = g[kind];
-    return cb(adapted);
-  });
-}
-const onFirstPause = exports.onFirstPause = _gensync()({
-  name: "onFirstPause",
-  arity: 2,
-  sync: function (item) {
-    return runGenerator.sync(item);
-  },
-  errback: function (item, firstPause, cb) {
-    let completed = false;
-    runGenerator.errback(item, (err, value) => {
-      completed = true;
-      cb(err, value);
-    });
-    if (!completed) {
-      firstPause();
+    read() {
+        this._isFatalError = false;
+        this._isDestroyed = false;
+        setImmediate(() => {
+            this._pushToQueue(this._root, this._settings.basePath);
+        });
+        return this._emitter;
     }
-  }
-});
-const waitFor = exports.waitFor = _gensync()({
-  sync: x => x,
-  async: function () {
-    var _ref2 = _asyncToGenerator(function* (x) {
-      return x;
-    });
-    return function async(_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }()
-});
-function isThenable(val) {
-  return !!val && (typeof val === "object" || typeof val === "function") && !!val.then && typeof val.then === "function";
+    get isDestroyed() {
+        return this._isDestroyed;
+    }
+    destroy() {
+        if (this._isDestroyed) {
+            throw new Error('The reader is already destroyed');
+        }
+        this._isDestroyed = true;
+        this._queue.killAndDrain();
+    }
+    onEntry(callback) {
+        this._emitter.on('entry', callback);
+    }
+    onError(callback) {
+        this._emitter.once('error', callback);
+    }
+    onEnd(callback) {
+        this._emitter.once('end', callback);
+    }
+    _pushToQueue(directory, base) {
+        const queueItem = { directory, base };
+        this._queue.push(queueItem, (error) => {
+            if (error !== null) {
+                this._handleError(error);
+            }
+        });
+    }
+    _worker(item, done) {
+        this._scandir(item.directory, this._settings.fsScandirSettings, (error, entries) => {
+            if (error !== null) {
+                done(error, undefined);
+                return;
+            }
+            for (const entry of entries) {
+                this._handleEntry(entry, item.base);
+            }
+            done(null, undefined);
+        });
+    }
+    _handleError(error) {
+        if (this._isDestroyed || !common.isFatalError(this._settings, error)) {
+            return;
+        }
+        this._isFatalError = true;
+        this._isDestroyed = true;
+        this._emitter.emit('error', error);
+    }
+    _handleEntry(entry, base) {
+        if (this._isDestroyed || this._isFatalError) {
+            return;
+        }
+        const fullpath = entry.path;
+        if (base !== undefined) {
+            entry.path = common.joinPathSegments(base, entry.name, this._settings.pathSegmentSeparator);
+        }
+        if (common.isAppliedFilter(this._settings.entryFilter, entry)) {
+            this._emitEntry(entry);
+        }
+        if (entry.dirent.isDirectory() && common.isAppliedFilter(this._settings.deepFilter, entry)) {
+            this._pushToQueue(fullpath, base === undefined ? undefined : entry.path);
+        }
+    }
+    _emitEntry(entry) {
+        this._emitter.emit('entry', entry);
+    }
 }
-0 && 0;
-
-//# sourceMappingURL=async.js.map
+exports.default = AsyncReader;
