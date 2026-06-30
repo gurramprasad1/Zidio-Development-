@@ -1,5 +1,3 @@
-import "./chunk-PXG64RU4.js";
-
 // src/types.ts
 var dataTagSymbol = /* @__PURE__ */ Symbol("dataTagSymbol");
 var dataTagErrorSymbol = /* @__PURE__ */ Symbol("dataTagErrorSymbol");

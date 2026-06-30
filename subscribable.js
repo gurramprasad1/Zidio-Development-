@@ -1,5 +1,3 @@
-import "./chunk-PXG64RU4.js";
-
 // src/subscribable.ts
 var Subscribable = class {
   constructor() {
