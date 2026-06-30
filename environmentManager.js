@@ -1,5 +1,3 @@
-import "./chunk-PXG64RU4.js";
-
 // src/environmentManager.ts
 import { isServer } from "./utils.js";
 var environmentManager = /* @__PURE__ */ (() => {
