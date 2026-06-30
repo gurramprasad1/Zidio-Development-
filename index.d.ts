@@ -1,101 +1,98 @@
-/**
- * License for programmatically and manually incorporated
- * documentation aka. `JSDoc` from https://github.com/nodejs/node/tree/master/doc
- *
- * Copyright Node.js contributors. All rights reserved.
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
- */
+// Type definitions for react-router-dom 5.3
+// Project: https://github.com/ReactTraining/react-router
+// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+//                 Philip Jackson <https://github.com/p-jackson>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Daniel Nixon <https://github.com/danielnixon>
+//                 Tony Ward <https://github.com/ynotdraw>
+//                 Pirasis Leelatanon <https://github.com/1pete>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
-// NOTE: These definitions support Node.js and TypeScript 5.8+.
+import { match } from 'react-router';
+import * as React from 'react';
+import * as H from 'history';
 
-// Reference required TypeScript libraries:
-/// <reference lib="es2020" />
-/// <reference lib="esnext.disposable" />
-/// <reference lib="esnext.float16" />
+export {
+    generatePath,
+    PromptProps,
+    Prompt,
+    MemoryRouterProps,
+    MemoryRouter,
+    RedirectProps,
+    Redirect,
+    RouteChildrenProps,
+    RouteComponentProps,
+    RouteProps,
+    Route,
+    RouterProps,
+    Router,
+    StaticRouterProps,
+    StaticRouter,
+    SwitchProps,
+    Switch,
+    match,
+    matchPath,
+    withRouter,
+    RouterChildContext,
+    useHistory,
+    useLocation,
+    useParams,
+    useRouteMatch,
+} from 'react-router';
 
-// Iterator definitions required for compatibility with TypeScript <5.6:
-/// <reference path="compatibility/iterators.d.ts" />
+export interface BrowserRouterProps {
+    basename?: string | undefined;
+    children?: React.ReactNode;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
+    forceRefresh?: boolean | undefined;
+    keyLength?: number | undefined;
+}
+export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
-// Definitions for Node.js modules specific to TypeScript 5.7+:
-/// <reference path="globals.typedarray.d.ts" />
-/// <reference path="buffer.buffer.d.ts" />
+export interface HashRouterProps {
+    basename?: string | undefined;
+    children?: React.ReactNode;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
+    hashType?: 'slash' | 'noslash' | 'hashbang' | undefined;
+}
+export class HashRouter extends React.Component<HashRouterProps, any> {}
 
-// Definitions for Node.js modules that are not specific to any version of TypeScript:
-/// <reference path="globals.d.ts" />
-/// <reference path="web-globals/abortcontroller.d.ts" />
-/// <reference path="web-globals/crypto.d.ts" />
-/// <reference path="web-globals/domexception.d.ts" />
-/// <reference path="web-globals/events.d.ts" />
-/// <reference path="web-globals/fetch.d.ts" />
-/// <reference path="web-globals/navigator.d.ts" />
-/// <reference path="web-globals/storage.d.ts" />
-/// <reference path="web-globals/streams.d.ts" />
-/// <reference path="assert.d.ts" />
-/// <reference path="assert/strict.d.ts" />
-/// <reference path="async_hooks.d.ts" />
-/// <reference path="buffer.d.ts" />
-/// <reference path="child_process.d.ts" />
-/// <reference path="cluster.d.ts" />
-/// <reference path="console.d.ts" />
-/// <reference path="constants.d.ts" />
-/// <reference path="crypto.d.ts" />
-/// <reference path="dgram.d.ts" />
-/// <reference path="diagnostics_channel.d.ts" />
-/// <reference path="dns.d.ts" />
-/// <reference path="dns/promises.d.ts" />
-/// <reference path="domain.d.ts" />
-/// <reference path="events.d.ts" />
-/// <reference path="fs.d.ts" />
-/// <reference path="fs/promises.d.ts" />
-/// <reference path="http.d.ts" />
-/// <reference path="http2.d.ts" />
-/// <reference path="https.d.ts" />
-/// <reference path="inspector.d.ts" />
-/// <reference path="inspector.generated.d.ts" />
-/// <reference path="module.d.ts" />
-/// <reference path="net.d.ts" />
-/// <reference path="os.d.ts" />
-/// <reference path="path.d.ts" />
-/// <reference path="perf_hooks.d.ts" />
-/// <reference path="process.d.ts" />
-/// <reference path="punycode.d.ts" />
-/// <reference path="querystring.d.ts" />
-/// <reference path="readline.d.ts" />
-/// <reference path="readline/promises.d.ts" />
-/// <reference path="repl.d.ts" />
-/// <reference path="sea.d.ts" />
-/// <reference path="sqlite.d.ts" />
-/// <reference path="stream.d.ts" />
-/// <reference path="stream/promises.d.ts" />
-/// <reference path="stream/consumers.d.ts" />
-/// <reference path="stream/web.d.ts" />
-/// <reference path="string_decoder.d.ts" />
-/// <reference path="test.d.ts" />
-/// <reference path="timers.d.ts" />
-/// <reference path="timers/promises.d.ts" />
-/// <reference path="tls.d.ts" />
-/// <reference path="trace_events.d.ts" />
-/// <reference path="tty.d.ts" />
-/// <reference path="url.d.ts" />
-/// <reference path="util.d.ts" />
-/// <reference path="v8.d.ts" />
-/// <reference path="vm.d.ts" />
-/// <reference path="wasi.d.ts" />
-/// <reference path="worker_threads.d.ts" />
-/// <reference path="zlib.d.ts" />
+export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    component?: React.ComponentType<any> | undefined;
+    to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
+    replace?: boolean | undefined;
+    innerRef?: React.Ref<HTMLAnchorElement> | undefined;
+}
+export function Link<S = H.LocationState>(
+    ...params: Parameters<Link<S>>
+): ReturnType<Link<S>>;
+
+export interface Link<S = H.LocationState>
+    extends React.ForwardRefExoticComponent<
+        React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>
+    > {}
+
+export interface NavLinkProps<S = H.LocationState> extends Omit<LinkProps<S>, "className" | "style"> {
+    activeClassName?: string | undefined;
+    activeStyle?: React.CSSProperties | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
+    isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
+    location?: H.Location<S> | undefined;
+    className?: string | ((isActive: boolean) => string) | undefined;
+    style?:
+        | React.CSSProperties
+        | ((isActive: boolean) => React.CSSProperties)
+        | undefined;
+    sensitive?: boolean | undefined;
+}
+export function NavLink<S = H.LocationState>(
+    // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.
+    props: React.PropsWithoutRef<NavLinkProps<S>> & React.RefAttributes<HTMLAnchorElement>,
+): ReturnType<NavLink<S>>;
+export interface NavLink<S = H.LocationState>
+    extends React.ForwardRefExoticComponent<
+        React.PropsWithoutRef<NavLinkProps<S>> & React.RefAttributes<HTMLAnchorElement>
+    > {}
