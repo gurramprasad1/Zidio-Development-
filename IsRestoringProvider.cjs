@@ -28,42 +28,20 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// src/errorBoundaryUtils.ts
-var errorBoundaryUtils_exports = {};
-__export(errorBoundaryUtils_exports, {
-  ensurePreventErrorBoundaryRetry: () => ensurePreventErrorBoundaryRetry,
-  getHasError: () => getHasError,
-  useClearResetErrorBoundary: () => useClearResetErrorBoundary
+// src/IsRestoringProvider.ts
+var IsRestoringProvider_exports = {};
+__export(IsRestoringProvider_exports, {
+  IsRestoringProvider: () => IsRestoringProvider,
+  useIsRestoring: () => useIsRestoring
 });
-module.exports = __toCommonJS(errorBoundaryUtils_exports);
+module.exports = __toCommonJS(IsRestoringProvider_exports);
 var React = __toESM(require("react"), 1);
-var import_query_core = require("@tanstack/query-core");
-var ensurePreventErrorBoundaryRetry = (options, errorResetBoundary, query) => {
-  const throwOnError = query?.state.error && typeof options.throwOnError === "function" ? (0, import_query_core.shouldThrowError)(options.throwOnError, [query.state.error, query]) : options.throwOnError;
-  if (options.suspense || options.experimental_prefetchInRender || throwOnError) {
-    if (!errorResetBoundary.isReset()) {
-      options.retryOnMount = false;
-    }
-  }
-};
-var useClearResetErrorBoundary = (errorResetBoundary) => {
-  React.useEffect(() => {
-    errorResetBoundary.clearReset();
-  }, [errorResetBoundary]);
-};
-var getHasError = ({
-  result,
-  errorResetBoundary,
-  throwOnError,
-  query,
-  suspense
-}) => {
-  return result.isError && !errorResetBoundary.isReset() && !result.isFetching && query && (suspense && result.data === void 0 || (0, import_query_core.shouldThrowError)(throwOnError, [result.error, query]));
-};
+var IsRestoringContext = React.createContext(false);
+var useIsRestoring = () => React.useContext(IsRestoringContext);
+var IsRestoringProvider = IsRestoringContext.Provider;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  ensurePreventErrorBoundaryRetry,
-  getHasError,
-  useClearResetErrorBoundary
+  IsRestoringProvider,
+  useIsRestoring
 });
-//# sourceMappingURL=errorBoundaryUtils.cjs.map
+//# sourceMappingURL=IsRestoringProvider.cjs.map
